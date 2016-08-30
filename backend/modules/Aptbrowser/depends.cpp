@@ -18,6 +18,7 @@
  */
 
 #include "depends.h"
+#include "controller.h"
 #include <iostream>
 #include <string>
 #include <thread>
@@ -47,11 +48,6 @@ QString result(const QString &cmd) {
         return NO_RESULT;
     else
         return result;
-}
-
-bool isPackage(QString pkg){
-    QString res = result(QString("apt-cache policy %1").arg(pkg.toLower()));
-    return true;
 }
 
 /*
@@ -215,8 +211,6 @@ void GetDepends::get_parents_depends(const QString &pkg_, int par_dep_idx)
 {
     QString pkg = pkg_.toLower();
     qDebug() << "==== in GetDepends::get_parents_depends(): pkg: " << pkg;
-    if (! isPackage(pkg))
-        return;
     QVariantMap m;
     m.insert("package",pkg);
     deps_.setParents(m);
@@ -226,8 +220,6 @@ void GetDepends::get_parents_depends(const QString &pkg_, int par_dep_idx)
 void GetDepends::get_parents_recommends(const QString &pkg, int par_rec_idx)
 {
     qDebug() << "==== in GetDepends::get_parents_recommends(): pkg: " << pkg;
-    if (! isPackage(pkg))
-        return;
     QVariantMap m;
     m.insert("package",pkg);
     deps_.setParents(m);

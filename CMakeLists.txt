@@ -55,12 +55,11 @@ install(FILES "aptbrowser.apparmor" DESTINATION ${DATA_DIR})
 
 add_subdirectory(app)
 add_subdirectory(backend)
-add_subdirectory(po)
 
 add_custom_target("run" /usr/bin/qmlscene -I ${CMAKE_BINARY_DIR}/backend  ${CMAKE_SOURCE_DIR}/app/aptbrowser.qml
                     DEPENDS aptbrowserbackend aptbrowserbackend-qmldir
                     WORKING_DIRECTORY ./app)
 
 # No op custom target for all not compiled files, so they show up in the QtCreator project tree
-add_custom_target("aptbrowser_ClickFiles" ALL SOURCES "aptbrowser.apparmor" "manifest.json.in")
+#add_custom_target("aptbrowser_ClickFiles" ALL SOURCES "aptbrowser.apparmor" "manifest.json.in")
 

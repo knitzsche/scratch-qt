@@ -21,14 +21,14 @@
 #include <QtQml/QQmlContext>
 #include "backend.h"
 #include "depends.h"
+#include "controller.h"
 
 
 void BackendPlugin::registerTypes(const char *uri)
 {
     Q_ASSERT(uri == QLatin1String("Aptbrowser"));
 
-    qmlRegisterType<Depends>(uri, 1, 0, "Depends");
-}
+    qmlRegisterType<Depends>(uri, 1, 0, "Depends");}
 
 void BackendPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
 {

@@ -6,6 +6,7 @@ set(
     Aptbrowserbackend_SRCS
     modules/Aptbrowser/backend.cpp
     modules/Aptbrowser/depends.cpp
+    modules/Aptbrowser/controller.cpp
 )
 
 add_library(Aptbrowserbackend MODULE
