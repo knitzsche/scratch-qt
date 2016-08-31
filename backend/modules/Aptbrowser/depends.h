@@ -26,6 +26,7 @@
 #include <QMap>
 #include <QDebug>
 #include <QThread>
+
 class Depends: public QObject
 {
     Q_OBJECT
@@ -40,7 +41,9 @@ public:
     Q_INVOKABLE void get_dependencies(QString, int);
     Q_INVOKABLE void get_recommendations(QString, int);
     Q_INVOKABLE void get_parents_dependencies(QString, int);
+    Q_INVOKABLE void stop_parents_dependencies();
     Q_INVOKABLE void get_parents_recommendations(QString, int);
+    Q_INVOKABLE void stop_parents_recommendations();
     Q_INVOKABLE void get_policy(QString);
     Depends(QObject *parent = 0) :
         QObject(parent)
@@ -144,7 +147,9 @@ signals:
     void recommendsChanged(int rec_idx);
     void parentsChanged();
     void parentsDependsChanged(int par_dep_idx);
+    void stopParentsDepends();
     void parentsRecommendsChanged(int par_rec_idx);
+    void stopParentsRecommends();
     void parentsDependsReady(const QString &result, int par_dep_idx);
     void parentsRecommendsReady(const QString &result, int par_rec_idx);
     void invalidPackageFound();

@@ -63,16 +63,26 @@ Page {
     function getParsDeps() {
         current_pkg = packageName.getText(0,packageName.length);
         pars_deps_busy = true;
+        parents_depends_animation.start();
+        parents_depends_busy.state = "ROTATING";
         current_par_dep_idx++;
         depends.get_parents_dependencies(current_pkg, current_par_dep_idx);
         previous_pkg = current_pkg;
     }
+    function stopParsDeps(){
+        depends.stop_parents_dependencies();
+    }
     function getParsRecs() {
         current_pkg = packageName.getText(0,packageName.length);
         pars_recs_busy = true;
+        parents_recommends_animation.start();
+        parents_recommends_busy.state = "ROTATING";
         current_par_rec_idx++;
         depends.get_parents_recommendations(current_pkg, current_par_rec_idx);
         previous_pkg = current_pkg;
+    }
+    function stopParsRecs(){
+        depends.stop_parents_recommends();
     }
     function addToParentsDepends(pdeps) {
         for (var i = 0; i < pdeps.length; i++) {
@@ -162,6 +172,7 @@ Page {
                     }
                 }
                 parents_depends_busy.state = "NORMAL";
+                parents_depends_animation.stop();
             }
         }
         onParentsRecommendsChanged: {
@@ -177,6 +188,7 @@ Page {
                     }
                 }
                 parents_recommends_busy.state = "NORMAL";
+                parents_recommends_animation.stop();
             }
         }
         onPolicyChanged: {
@@ -314,16 +326,13 @@ Page {
                         color: UbuntuColors.orange
                         state: "NORMAL"
                         RotationAnimator {
+                            id: parents_depends_animation
                             running: pars_deps_busy
                             target: parents_depends_busy
                             loops: 100000
                             from: 0
                             to: 360
                             duration: 50
-                            onRunningChanged: {
-                                parents_depends_busy.color = UbuntuColors.purple;
-                                parents_depends_busy.state = "ROTATING";
-                            }
                         }
                         states: [
                             State {
@@ -343,7 +352,11 @@ Page {
                         onClicked: {
                             console.log("==== Pars Deps clicked");
                             hideStatus();
-                            if (packageName.length != 0) {
+                            if (parents_depends_busy.state == "ROTATING"){
+                                parents_depends_busy.state = "NORMAL"
+                                parents_depends_animation.stop()
+                            }
+                            else if (packageName.length != 0) {
                                 prepDeps(packageName.getText(0,packageName.length));
                                 getParsDeps();
                             } else {
@@ -386,16 +399,13 @@ Page {
                         color: UbuntuColors.orange
                         state: "NORMAL"
                         RotationAnimator {
+                            id: parents_recommends_animation
                             running: pars_recs_busy
                             target: parents_recommends_busy
                             loops: 100000
                             from: 0
                             to: 360
                             duration: 50
-                            onRunningChanged: {
-                                parents_recommends_busy.color = UbuntuColors.purple;
-                                parents_recommends_busy.state = "ROTATING";
-                            }
                         }
                         states: [
                             State {
@@ -414,8 +424,13 @@ Page {
                         text: "Parent Recs"
                         onClicked: {
                             console.log("==== Pars Recs clicked");
+                            console.log("==== parents_recommends_busy.state:" + parents_recommends_busy.state);
                             hideStatus();
-                            if (packageName.length != 0) {
+                            if (parents_recommends_busy.state == "ROTATING"){
+                                parents_recommends_busy.state = "NORMAL"
+                                parents_recommends_animation.stop()
+                            }
+                            else if (packageName.length != 0) {
                                 prepDeps(packageName.getText(0,packageName.length));
                                 getParsRecs();
                             } else {

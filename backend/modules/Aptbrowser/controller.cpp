@@ -22,12 +22,14 @@ Controller::Controller(Depends *deps, QString deptype) : deps_(deps)
         connect(this, &Controller::operate, gdeps, &GetDepends::get_parents_depends);
         connect(deps_, &Depends::parentsDependsReady, deps_, &Depends::updateParsDeps);
         connect(gdeps, &GetDepends::invalidPackage, deps_, &Depends::parsDepsInvalid);
+        connect(deps, &Depends::stopParentsDepends, &workerThread, &QThread::quit);
     }
     if (deptype == "ParentsRecommends")
     {
         connect(this, &Controller::operate, gdeps, &GetDepends::get_parents_recommends);
         connect(deps_, &Depends::parentsRecommendsReady, deps_, &Depends::updateParsRecs);
         connect(gdeps, &GetDepends::invalidPackage, deps_, &Depends::parsRecsInvalid);
+        connect(deps, &Depends::stopParentsRecommends, &workerThread, &QThread::quit);
     }
     else if (deptype == "policy")
     {

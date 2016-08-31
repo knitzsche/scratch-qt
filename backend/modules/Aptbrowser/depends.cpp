@@ -199,6 +199,14 @@ void Depends::get_parents_dependencies(QString pkg, int par_dep_idx)
     return;
 }
 
+void Depends::stop_parents_dependencies()
+{
+    qDebug() << "==== in Depends::stop_parents_dependencies()";
+    Controller *cont = new Controller(this, "ParentsDepends");
+    Q_EMIT stopParentsDepends();
+    return;
+}
+
 void Depends::get_parents_recommendations(QString pkg, int par_rec_idx)
 {
     qDebug() << "==== in Depends::get_parents_recommendations()";
@@ -224,6 +232,14 @@ void GetDepends::get_parents_recommends(const QString &pkg, int par_rec_idx)
     m.insert("package",pkg);
     deps_.setParents(m);
     deps_.getParentsOfType("Recommends", par_rec_idx);
+}
+
+void Depends::stop_parents_recommendations()
+{
+    qDebug() << "==== in Depends::stop_parents_recommends()";
+    Controller *cont = new Controller(this, "ParentsRecommends");
+    Q_EMIT stopParentsRecommends();
+    return;
 }
 
 /*
