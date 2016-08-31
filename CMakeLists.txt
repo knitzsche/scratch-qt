@@ -27,7 +27,7 @@ execute_process(
 set(QT_IMPORTS_DIR "lib/${ARCH_TRIPLET}")
 
 set(APP_NAME          aptbrowser)
-set(APTBROWSER_DIR "share/qml/aptbrowser")
+set(APTBROWSER_DIR "aptbrowser")
 set(MAIN_QML          "aptbrowser.qml")
 set(ICON              "graphics/icon.png")
 
