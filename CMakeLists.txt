@@ -1,12 +1,12 @@
-set (VERSION "0.10")
+set (VERSION "0.2")
 
 project(aptbrowser C CXX)
 cmake_minimum_required(VERSION 2.8.10)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pedantic -Wall -Wextra")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pedantic -Wall -Wextra -s")
 ADD_DEFINITIONS( -DQT_NO_DEBUG_OUTPUT )
 
 # Do not remove this line, its required for the correct functionality of the Ubuntu-SDK
-set(UBUNTU_MANIFEST_PATH "manifest.json.in" CACHE INTERNAL "Tells QtCreator location and name of the manifest file")
+#set(UBUNTU_MANIFEST_PATH "manifest.json.in" CACHE INTERNAL "Tells QtCreator location and name of the manifest file")
 set (CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 find_package(Qt5Core)
@@ -51,7 +51,7 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/manifest.json
         DESTINATION ${CMAKE_INSTALL_PREFIX})
 
 install(DIRECTORY "app/graphics" DESTINATION ${DATA_DIR})
-install(FILES "aptbrowser.apparmor" DESTINATION ${DATA_DIR})
+#install(FILES "aptbrowser.apparmor" DESTINATION ${DATA_DIR})
 
 add_subdirectory(app)
 add_subdirectory(backend)
@@ -59,7 +59,6 @@ add_subdirectory(backend)
 add_custom_target("run" /usr/bin/qmlscene -I ${CMAKE_BINARY_DIR}/backend  ${CMAKE_SOURCE_DIR}/app/aptbrowser.qml
                     WORKING_DIRECTORY ./app)
 
-                    #DEPENDS aptbrowserbackend aptbrowserbackend-qmldir
 # No op custom target for all not compiled files, so they show up in the QtCreator project tree
 #add_custom_target("aptbrowser_ClickFiles" ALL SOURCES "aptbrowser.apparmor" "manifest.json.in")
 
