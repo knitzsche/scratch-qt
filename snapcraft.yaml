@@ -1,0 +1,51 @@
+name: aptbrowser
+version: 0.1
+summary: Browse your apt dependencies
+description: Browse your apt cache dependencies
+confinement: devmode
+
+apps:
+  aptbrowser: 
+    command: aptbrowser 
+    plugs: [unity7, opengl]
+
+parts:
+    application:
+        plugin: cmake
+        source: https://github.com/knitzsche/aptbrowser
+        source-type: git
+        build-packages:
+          - build-essential
+          - cmake
+          - gettext
+          - intltool
+          - ubuntu-touch-sounds
+          - suru-icon-theme
+          - qml-module-qttest
+          - qml-module-qtsysteminfo
+          - qml-module-qt-labs-settings
+          - qtdeclarative5-u1db1.0
+          - qtdeclarative5-qtmultimedia-plugin
+          - qtdeclarative5-qtpositioning-plugin
+          - qtdeclarative5-ubuntu-content1
+          - qt5-default
+          - qtbase5-dev
+          - qtdeclarative5-dev
+          - qtdeclarative5-dev-tools
+          - qtdeclarative5-folderlistmodel-plugin
+          - qtdeclarative5-ubuntu-ui-toolkit-plugin
+        stage-packages:
+          - ubuntu-sdk-libs
+          - qtubuntu-desktop
+          - qml-module-qtsysteminfo
+          - qtmir-desktop
+          - mir-graphics-drivers-desktop
+        snap:
+          - -usr/share/doc
+          - -usr/include
+
+    environment:
+        plugin: copy
+        files:
+            aptbrowser.wrapper: bin/aptbrowser
+            snappy-qt5.conf: etc/xdg/qtchooser/snappy-qt5.conf
