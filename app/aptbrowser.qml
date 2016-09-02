@@ -22,6 +22,16 @@ MainView {
     Tabs {
         id: tabs 
         Tab {
+            title: "cli"
+            page: Page {
+                id: cliPage
+                title: "Cli"
+                Cli {
+                }
+            }
+        }
+
+        Tab {
             title: "Apt"
             page: Page {
                 id: aptPage
@@ -47,17 +57,6 @@ MainView {
                     Component.onCompleted: {
                         url = "http://kylenitzsche.com"
                     }
-                }
-            }
-        }
-        Tab {
-            title: "cli"
-            page: Page {
-                id: cliPage
-                title: "Cli"
-                Rectangle {
-                    id: cliRect
-                    width: parent.width
                 }
             }
         }

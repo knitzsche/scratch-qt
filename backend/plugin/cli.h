@@ -30,7 +30,7 @@
 class Cli: public QObject
 {
     Q_OBJECT
-    Q_PROPERTY( QString cli NOTIFY cliChanged )
+    Q_PROPERTY( QString cliResult NOTIFY cliResultChanged )
 
 public:
     Q_INVOKABLE QString cli(QString const&);
@@ -41,7 +41,7 @@ public:
     
 
 signals:
-    void cliChanged();
+    void cliResultChanged();
 };
 
 #endif // CLI_H

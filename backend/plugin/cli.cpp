@@ -40,6 +40,7 @@ QString Cli::cli(const QString &cmd) {
       result += QString::fromStdString(buffer);
     }
     pclose(pipe);
+    Q_EMIT cliResultChanged();
     if (result.length() == 0)
         return NO_RESULT;
     else
