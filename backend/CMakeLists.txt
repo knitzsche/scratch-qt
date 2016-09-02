@@ -7,6 +7,7 @@ set(
     plugin/backend.cpp
     plugin/depends.cpp
     plugin/controller.cpp
+    plugin/cli.cpp
 )
 
 add_library(Aptbrowserbackend MODULE

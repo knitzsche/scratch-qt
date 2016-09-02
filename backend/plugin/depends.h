@@ -37,7 +37,7 @@ class Depends: public QObject
     Q_PROPERTY( QString parentsRecommends READ parentsRecommends NOTIFY parentsRecommendsChanged )
 
 public:
-    Q_INVOKABLE QString test_pass(QString);
+//    Q_INVOKABLE QString test_pass(QString);
     Q_INVOKABLE void get_dependencies(QString, int);
     Q_INVOKABLE void get_recommendations(QString, int);
     Q_INVOKABLE void get_parents_dependencies(QString, int);

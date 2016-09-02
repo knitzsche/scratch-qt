@@ -17,24 +17,32 @@
  *
  */
 
-#include <QtQml>
-#include <QtQml/QQmlContext>
-#include "backend.h"
-#include "depends.h"
-#include "cli.h"
-#include "controller.h"
+#ifndef CLI_H
+#define CLI_H
 
+#include <QObject>
+#include <QStringList>
+#include <QVariant>
+#include <QMap>
+#include <QDebug>
+#include <QThread>
 
-void BackendPlugin::registerTypes(const char *uri)
+class Cli: public QObject
 {
-    Q_ASSERT(uri == QLatin1String("Aptbrowser"));
+    Q_OBJECT
+    Q_PROPERTY( QString cli NOTIFY cliChanged )
 
-    qmlRegisterType<Depends>(uri, 1, 0, "Depends");
-    qmlRegisterType<Cli>(uri, 1, 0, "Cli");
+public:
+    Q_INVOKABLE QString cli(QString const&);
 
-}
+    Cli(QObject *parent = 0) :
+        QObject(parent)
+    {}
+    
 
-void BackendPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
-{
-    QQmlExtensionPlugin::initializeEngine(engine, uri);
-}
+signals:
+    void cliChanged();
+};
+
+#endif // CLI_H
+

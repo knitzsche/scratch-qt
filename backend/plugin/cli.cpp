@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Canonical Ltd
+ * Copyright (C) 2016 Canonical Ltd
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -17,24 +17,31 @@
  *
  */
 
-#include <QtQml>
-#include <QtQml/QQmlContext>
-#include "backend.h"
-#include "depends.h"
 #include "cli.h"
-#include "controller.h"
+#include <iostream>
+#include <string>
+#include <thread>
+#include <future>
+#include <stdio.h>
+#include <stdlib.h>
+#include <QStringList>
+#include <QVariant>
+#include <QDebug>
 
+const QString NO_RESULT = "no_result";
 
-void BackendPlugin::registerTypes(const char *uri)
-{
-    Q_ASSERT(uri == QLatin1String("Aptbrowser"));
-
-    qmlRegisterType<Depends>(uri, 1, 0, "Depends");
-    qmlRegisterType<Cli>(uri, 1, 0, "Cli");
-
-}
-
-void BackendPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
-{
-    QQmlExtensionPlugin::initializeEngine(engine, uri);
+QString Cli::cli(const QString &cmd) {
+    FILE* pipe = popen(cmd.toStdString().c_str(), "r");
+    if (!pipe) return "ERROR";
+    char buffer[128];
+    QString result = "";
+    while(!feof(pipe)) {
+    if(fgets(buffer, 128, pipe) != NULL)
+      result += QString::fromStdString(buffer);
+    }
+    pclose(pipe);
+    if (result.length() == 0)
+        return NO_RESULT;
+    else
+        return result;
 }

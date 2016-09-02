@@ -1,11 +1,10 @@
 import QtQuick 2.2
-import Ubuntu.Components 1.1
+import Ubuntu.Components 1.2
 import Aptbrowser 1.0
 import "../components"
 
-Page {
-    id: page1
-    title: "Apt Browser"
+Rectangle {
+    id: apt
     property int page_height: 120
     property int page_width: 160
     property int header_height: 12
