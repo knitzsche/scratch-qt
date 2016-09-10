@@ -1,11 +1,13 @@
 import QtQuick 2.2
 import Ubuntu.Components 1.2
+import  QtQuick.Layouts 1.2
 import Aptbrowser 1.0
 import "../components"
 
 Rectangle {
     id: cliRect
     property string cliResult: ""
+    property string cmd_snap_list: "snap list";
 
     property int page_height: 120
     property int page_width: 160
@@ -35,6 +37,7 @@ Rectangle {
             cli_busy= false;
         }               
     }
+
     Rectangle {
         id: main
         width: units.gu(page_width)
@@ -43,17 +46,23 @@ Rectangle {
             id: row1
             height: units.gu(control_height/2)
             width: units.gu(parent.width)
+            anchors.centerIn: parent
+            anchors.top: parent.top
             Rectangle {
-                id: pkg_entry_row
+                id: pkg_entry_rownhc
                 width: units.gu(parent.width)
                 height: units.gu(control_height/2)
-                function setPackage(pkg) {
+                anchors.centerIn: parent
+                anchors.top: parent.top
+                function setPackage(pkg){
                     command.remove(0,command.length)
                     command.paste(pkg);
                 }
                 TextField {
                     id: command
                     width: units.gu(page_width - 2)
+                    anchors.centerIn: parent
+                    anchors.top: parent.top
                     onAccepted: {
 
                     }
@@ -61,66 +70,73 @@ Rectangle {
             }
         }
         Rectangle {
-            id: cliButtons
-            height: units.gu(control_height/2)
-            width: units.gu(parent.width)
-            anchors.top: row1.bottom
             Rectangle {
-                id: cli_busy_id
-                width: units.gu(2)
-                height: units.gu(2)
-                color: UbuntuColors.orange
-                state: "NORMAL"
-                RotationAnimator {
-                    id: rotate
-                    running: cli_busy
-                    target: cli_busy_id
-                    loops: 100000
-                    from: 0
-                    to: 360
-                    duration: 50
-                    onRunningChanged: {
-                        cli_busy_id.color = UbuntuColors.purple;
-                        cli_busy_id.state = "ROTATING";
+                id: cliButtons
+                anchors.top: row1.bottom
+                anchors.left: main.left
+                width: 150
+                height: 200
+                //visible: true
+                //Layout.column: 1
+                Rectangle {
+                    id: cli_busy_id
+                    width: units.gu(2)
+                    height: units.gu(2)
+                    color: UbuntuColors.orange
+                    state: "NORMAL"
+                    RotationAnimator {
+                        id: rotate
+                        running: cli_busy
+                        target: cli_busy_id
+                        loops: 100000
+                        from: 0
+                        to: 360
+                        duration: 50
+                        onRunningChanged: {
+                            cli_busy_id.color = UbuntuColors.purple;
+                            cli_busy_id.state = "ROTATING";
+                        }
                     }
-                }
-                states: [
-                    State {
-                        name: "NORMAL"
-                        PropertyChanges { target: cli_busy_id; color: UbuntuColors.orange }
-                    },
-                    State {
-                        name: "ROTATING"
-                        PropertyChanges { target: cli_busy_id; color: UbuntuColors.purple }
+                    states: [
+                        State {
+                            name: "NORMAL"
+                            PropertyChanges { target: cli_busy_id; color: UbuntuColors.orange }
+                        },
+                        State {
+                            name: "ROTATING"
+                            PropertyChanges { target: cli_busy_id; color: UbuntuColors.purple }
+                        }
+                    ]
+                    Button {
+                        id: getCli_b
+                        anchors.left: cli_busy_id.right
+                        text: "Your Command"
+                        onClicked: {
+                            getCli(command.getText(0,command.length));
+                        }
                     }
-                ]
+                    Button {
+                        id: cmd_1_b
+                        text: cmd_snap_list
+                        anchors.top: getCli_b.bottom
+                        onClicked: {
+                            getCli(cmd_snap_list);
+                        }
+                    }
+               }
             }
-            Button {
-                id: getCli_b
-                anchors.left: cli_busy_id.right
-                text: "CLI"
-                onClicked: {
-                    if (status.visible == true) {
-                        hideStatus();
-                    } else {
-                        var cmd = command.getText(0,command.length);
-                        getCli(cmd);
-                    }
+            Rectangle {
+                id: status
+                anchors.top: parent.top
+                anchors.left: cliButtons.right
+                width: 50
+                height: 200
+                Label {
+                    id: status_label
+                    height: 200
+                    text: "======= HERE IS STATUS ===="
+                    color: UbuntuColors.purple
                 }
-            }
-        }
-        Rectangle {
-            id: status
-            anchors.top: cliButtons.bottom
-            width: units.gu(page_width)
-            height: units.gu(0)
-            visible: false
-            //color: UbuntuColors.lightGrey
-            Label {
-                id: status_label
-                height: units.gu(status_height)
-                text: "Status displays here"
-                color: UbuntuColors.purple
             }
         }
     }
