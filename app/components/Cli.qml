@@ -46,14 +46,12 @@ Rectangle {
             id: row1
             height: units.gu(control_height/2)
             width: units.gu(parent.width)
-            anchors.centerIn: parent
-            anchors.top: parent.top
+            anchors.top: main.top
             Rectangle {
                 id: pkg_entry_rownhc
                 width: units.gu(parent.width)
                 height: units.gu(control_height/2)
-                anchors.centerIn: parent
-                anchors.top: parent.top
+                anchors.top: row1.top
                 function setPackage(pkg){
                     command.remove(0,command.length)
                     command.paste(pkg);
@@ -61,8 +59,7 @@ Rectangle {
                 TextField {
                     id: command
                     width: units.gu(page_width - 2)
-                    anchors.centerIn: parent
-                    anchors.top: parent.top
+                    anchors.top: pkg_entry_rownhc.top
                     onAccepted: {
 
                     }
@@ -70,57 +67,53 @@ Rectangle {
             }
         }
         Rectangle {
+            id: row2
+            anchors.top: row1.bottom
+
             Rectangle {
                 id: cliButtons
                 anchors.top: row1.bottom
                 anchors.left: main.left
                 width: 150
                 height: 200
-                //visible: true
-                //Layout.column: 1
                 Rectangle {
                     id: cli_busy_id
                     width: units.gu(2)
                     height: units.gu(2)
-                    color: UbuntuColors.orange
-                    state: "NORMAL"
-                    RotationAnimator {
-                        id: rotate
-                        running: cli_busy
-                        target: cli_busy_id
-                        loops: 100000
-                        from: 0
-                        to: 360
-                        duration: 50
-                        onRunningChanged: {
-                            cli_busy_id.color = UbuntuColors.purple;
-                            cli_busy_id.state = "ROTATING";
-                        }
-                    }
-                    states: [
-                        State {
-                            name: "NORMAL"
-                            PropertyChanges { target: cli_busy_id; color: UbuntuColors.orange }
-                        },
-                        State {
-                            name: "ROTATING"
-                            PropertyChanges { target: cli_busy_id; color: UbuntuColors.purple }
-                        }
-                    ]
                     Button {
                         id: getCli_b
-                        anchors.left: cli_busy_id.right
+                        anchors.top: cliButtons.top
                         text: "Your Command"
                         onClicked: {
                             getCli(command.getText(0,command.length));
                         }
                     }
-                    Button {
-                        id: cmd_1_b
-                        text: cmd_snap_list
+                    Rectangle {
+                        id: cmd1
                         anchors.top: getCli_b.bottom
+
+                        Button {
+                        text: cmd_snap_list
                         onClicked: {
                             getCli(cmd_snap_list);
+                        }
+                        }
+                    }
+                    Button {
+                        id: cmd3
+                        text: "snap interfaces"
+
+                        anchors.top: getCli_b.bottom
+                        onClicked: {
+                            getCli("snap interfaces");
+                        }
+                    }
+                    Button {
+                        id: cmd2_
+                        text: "env"
+                        anchors.top: cmd3.bottom
+                        onClicked: {
+                            getCli("env");
                         }
                     }
                }
@@ -134,7 +127,6 @@ Rectangle {
                 Label {
                     id: status_label
                     height: 200
-                    text: "======= HERE IS STATUS ===="
                     color: UbuntuColors.purple
                 }
             }
