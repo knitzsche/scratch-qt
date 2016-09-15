@@ -6,46 +6,71 @@ confinement: devmode
 
 apps:
   aptbrowser: 
-    command: aptbrowser 
-    plugs: [unity7, opengl]
+    command: desktop-launch aptbrowser 
+    plugs: [unity7, opengl, network-bind]
 
 parts:
     application:
         plugin: cmake
-        source: https://github.com/knitzsche/aptbrowser
-        source-type: git
+        source: . 
         build-packages:
           - build-essential
           - cmake
           - gettext
           - intltool
-          - ubuntu-touch-sounds
-          - suru-icon-theme
+          - libevdev-dev
+          - libudev-dev
+          - libapparmor-dev
+          - pkg-config
           - qml-module-qttest
+          - qml-module-ubuntu-web
           - qml-module-qtsysteminfo
           - qml-module-qt-labs-settings
+          - qtbase5-dev
+          - qtbase5-dev-tools
+          - qtbase5-private-dev
+          - qt5-default
+          - qt5-qmake
           - qtdeclarative5-u1db1.0
           - qtdeclarative5-qtmultimedia-plugin
           - qtdeclarative5-qtpositioning-plugin
           - qtdeclarative5-ubuntu-content1
-          - qt5-default
-          - qtbase5-dev
           - qtdeclarative5-dev
           - qtdeclarative5-dev-tools
           - qtdeclarative5-folderlistmodel-plugin
+          - qttools5-dev-tools
           - qtdeclarative5-ubuntu-ui-toolkit-plugin
+          - suru-icon-theme
+          - ubuntu-touch-sounds
+          - xvfb
         stage-packages:
-          - ubuntu-sdk-libs
+          - fonts-liberation
+          - liboxideqt-qmlplugin
+          - libqt5sql5-sqlite
+          - mir-graphics-drivers-desktop
           - qtubuntu-desktop
           - qml-module-qtsysteminfo
           - qtmir-desktop
-          - mir-graphics-drivers-desktop
+          - qml-module-qt-labs-folderlistmodel
+          - qml-module-qt-labs-settings
+          - qml-module-qtquick2
+          - qml-module-qtquick-layouts
+          - qml-module-qtquick-window2
+          - qml-module-ubuntu-components
+          - qml-module-ubuntu-thumbnailer0.1
+          - qtdeclarative5-ubuntu-content1
+          - qtdeclarative5-ubuntu-download-manager0.1
+          - qtdeclarative5-unity-action-plugin
+          - ubuntu-sdk-libs
+          - overlay-scrollbar-gtk2
+          - libatk-adaptor
+          - libgail-common
         snap:
           - -usr/share/doc
           - -usr/include
+        after: [desktop/qt5]
 
     environment:
         plugin: copy
         files:
             aptbrowser.wrapper: bin/aptbrowser
-            snappy-qt5.conf: etc/xdg/qtchooser/snappy-qt5.conf
