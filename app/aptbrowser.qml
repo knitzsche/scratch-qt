@@ -30,7 +30,6 @@ MainView {
                 }
             }
         }
-
         Tab {
             title: "Apt"
             page: Page {
