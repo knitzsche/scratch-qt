@@ -124,9 +124,10 @@ Rectangle {
                 anchors.left: cliButtons.right
                 width: 50
                 height: 200
-                Label {
+                Text {
                     id: status_label
                     height: 200
+                    font.family: "Monospace"
                     color: UbuntuColors.purple
                 }
             }
