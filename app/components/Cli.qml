@@ -72,8 +72,8 @@ Rectangle {
 
             Rectangle {
                 id: cliButtons
-                anchors.top: row1.bottom
-                anchors.left: main.left
+                anchors.top: row2.top
+                anchors.left: row2.left
                 width: 150
                 height: 200
                 Rectangle {
@@ -82,27 +82,25 @@ Rectangle {
                     height: units.gu(2)
                     Button {
                         id: getCli_b
-                        anchors.top: cliButtons.top
+                        anchors.top: cli_busy_id.top
                         text: "Your Command"
                         onClicked: {
                             getCli(command.getText(0,command.length));
                         }
                     }
-                    Rectangle {
+                    Button {
                         id: cmd1
                         anchors.top: getCli_b.bottom
-
-                        Button {
+                        anchors.topMargin: 5
                         text: cmd_snap_list
                         onClicked: {
                             getCli(cmd_snap_list);
-                        }
                         }
                     }
                     Button {
                         id: cmd3
                         text: "snap interfaces"
-
+                        anchors.topMargin: 5
                         anchors.top: getCli_b.bottom
                         onClicked: {
                             getCli("snap interfaces");
@@ -112,6 +110,7 @@ Rectangle {
                         id: cmd2_
                         text: "env"
                         anchors.top: cmd3.bottom
+                        anchors.topMargin: 5
                         onClicked: {
                             getCli("env");
                         }
