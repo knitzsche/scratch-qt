@@ -1,4 +1,4 @@
-import QtQuick 2.2
+import QtQuick 2.5
 import Ubuntu.Components 1.2
 import  QtQuick.Layouts 1.2
 import Aptbrowser 1.0
@@ -8,7 +8,7 @@ Rectangle {
     id: cliRect
     property string cliResult: ""
     property string cmd_snap_list: "snap list";
-
+    property string cmd: command.text
     property int page_height: 120
     property int page_width: 160
     property int header_height: 12
@@ -28,6 +28,14 @@ Rectangle {
         status_label.height = units.gu(status_height);
         status.height = units.gu(status_height);
         status.visible = true;
+    }
+ 
+    focus: true
+    Keys.onPressed: {
+        if (event.key == Qt.Key_Return){
+            console.log("== RETURN pressed");
+            getCli(cmd);
+        }
     }
 
     Cli { // pulls in Cli c++ class
@@ -52,17 +60,11 @@ Rectangle {
                 width: units.gu(parent.width)
                 height: units.gu(control_height/2)
                 anchors.top: row1.top
-                function setPackage(pkg){
-                    command.remove(0,command.length)
-                    command.paste(pkg);
-                }
                 TextField {
                     id: command
                     width: units.gu(page_width - 2)
                     anchors.top: pkg_entry_rownhc.top
-                    onAccepted: {
-
-                    }
+                    placeholderText: "Enter command"
                 }
             }
         }
@@ -85,7 +87,7 @@ Rectangle {
                         anchors.top: cli_busy_id.top
                         text: "Your Command"
                         onClicked: {
-                            getCli(command.getText(0,command.length));
+                            getCli(cmd);
                         }
                     }
                     Button {
@@ -107,12 +109,21 @@ Rectangle {
                         }
                     }
                     Button {
-                        id: cmd2_
+                        id: cmd_env
                         text: "env"
                         anchors.top: cmd3.bottom
                         anchors.topMargin: 5
                         onClicked: {
                             getCli("env");
+                        }
+                    }
+                    Button {
+                        id: cmd_env_snap
+                        text: "env SNAP"
+                        anchors.top: cmd_env.bottom
+                        anchors.topMargin: 5
+                        onClicked: {
+                            getCli("env | grep SNAP");
                         }
                     }
                }
