@@ -8,6 +8,8 @@ else
 	ARCH="$SNAP_ARCH-linux-gnu"
 fi
 
+echo 
+
 export LD_LIBRARY_PATH=$SNAP/usr/lib/$ARCH:$LD_LIBRARY_PATH
 
 # XKB config
@@ -30,9 +32,10 @@ export LD_LIBRARY_PATH=$SNAP/usr/lib/$ARCH/pulseaudio:$LD_LIBRARY_PATH
 
 # Qt Modules
 export QT_PLUGIN_PATH=$SNAP/usr/lib/$ARCH/qt5/plugins
-export QML2_IMPORT_PATH=$SNAP/usr/lib/$ARCH/qt5/qml/ClockApp
+
 export QML2_IMPORT_PATH=$QML2_IMPORT_PATH:$SNAP/usr/lib/$ARCH/qt5/qml
 export QML2_IMPORT_PATH=$QML2_IMPORT_PATH:$SNAP/lib/$ARCH
+export QML2_IMPORT_PATH=$QML2_IMPORT_PATH:$SNAP/usr/lib/qt5/qml
 
 # Mesa Libs
 export LD_LIBRARY_PATH=$SNAP/usr/lib/$ARCH/mesa:$LD_LIBRARY_PATH
@@ -65,6 +68,10 @@ export LD_LIBRARY_PATH="$SNAP_LIBRARY_PATH:$LD_LIBRARY_PATH"
 cd $SNAP
 
 export OXIDE_NO_SANDBOX=1
+echo "====== SMAP: ${SNAP}"
+
+echo "======= SNAP/lib/ARCH:$SNAP/lib/$ARCH"
+
 
 # Note: --desktop_file_hint=unity8 seems to be required by Unity 8 only,
 # and not to have any effect in Unity 7. I'm unclear on why it's needed [dpm].
