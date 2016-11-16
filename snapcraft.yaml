@@ -1,13 +1,14 @@
 name: aptbrowser
-version: 0.1
+version: 0.2
 summary: Browse your apt dependencies
 description: Browse your apt cache dependencies
-confinement: devmode
+confinement: strict 
+grade: devel 
 
 apps:
-  aptbrowser: 
+  run: 
     command: desktop-launch aptbrowser 
-    plugs: [unity7, opengl, network-bind]
+    plugs: [unity7, opengl, network-bind, gsettings, browser-support, pulseaudio]
 
 parts:
     application:
@@ -18,20 +19,27 @@ parts:
           - cmake
           - gettext
           - intltool
-          - libapparmor-dev
           - pkg-config
+        after: [desktop-qt5]
+
+    qt:
+        plugin: nil
         stage-packages:
-          - fonts-liberation
           - liboxideqt-qmlplugin
           - qtubuntu-desktop
           - qtdeclarative5-ubuntu-content1
           - ubuntu-sdk-libs
-        snap:
-          - -usr/share/doc
-          - -usr/include
-        after: [desktop/qt5]
+          - libsdl2-2.0-0
+          - libqt5quick5
+          - qml-module-qtquick2
+          - qml-module-qtquick-window2
+          - qml-module-qtquick-layouts
+          - qml-module-qtquick-controls
+          - locales-all
 
     environment:
-        plugin: copy
-        files:
+        plugin: dump
+        source: .
+        organize:
             aptbrowser.wrapper: bin/aptbrowser
+            snappy-qt5.conf: etc/xdg/qtchooser/snappy-qt5.conf
