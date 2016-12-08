@@ -51,6 +51,7 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/manifest.json
         DESTINATION ${CMAKE_INSTALL_PREFIX})
 
 install(DIRECTORY "app/graphics" DESTINATION ${DATA_DIR})
+install(DIRECTORY "ubuntu-app-platform" DESTINATION ${DATA_DIR})
 #install(FILES "aptbrowser.apparmor" DESTINATION ${DATA_DIR})
 
 add_subdirectory(app)
