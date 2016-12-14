@@ -3,7 +3,7 @@ set (VERSION "0.2")
 project(aptbrowser C CXX)
 cmake_minimum_required(VERSION 2.8.10)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pedantic -Wall -Wextra -g")
-ADD_DEFINITIONS( -DQT_NO_DEBUG_OUTPUT )
+#ADD_DEFINITIONS( -DQT_NO_DEBUG_OUTPUT )
 
 # Do not remove this line, its required for the correct functionality of the Ubuntu-SDK
 #set(UBUNTU_MANIFEST_PATH "manifest.json.in" CACHE INTERNAL "Tells QtCreator location and name of the manifest file")

@@ -26,10 +26,18 @@ Rectangle {
     property bool pars_deps_busy: false
     property bool pars_recs_busy: false
     property bool policy_busy: false
+    property bool run_busy: false
     property int current_dep_idx: -1
     property int current_rec_idx: -1
     property int current_par_dep_idx: -1
     property int current_par_rec_idx: -1
+
+
+    function run() {
+        console.log("in run");
+        run_busy = true;
+        depends.get_run();
+    }
 
     function getPolicy(pkg) {
         policy_busy = true;
@@ -198,6 +206,14 @@ Rectangle {
             policy_busy_id.color = UbuntuColors.orange;
             policy_busy_id.state = "NORMAL";
         }
+        onRunDone: {
+            console.log(" === onRunChanged heard");
+            run_busy = false;
+            run_busy_id.color = UbuntuColors.orange;
+            run_busy_id.state = "NORMAL";
+        }
+
+
         onInvalidPackageFound: {
             console.log(" === onInvalidPackage heard");
             showStatus("Package not found, please try again");
@@ -244,6 +260,7 @@ Rectangle {
             height: units.gu(control_height/2)
             width: units.gu(parent.width)
             anchors.top: row1.bottom
+            anchors.left: parent.left
             Rectangle {
                 id: policy_busy_id
                 width: units.gu(2)
@@ -293,8 +310,55 @@ Rectangle {
             }
         }
         Rectangle {
-            id: status
+            id: runbuttons
+            height: units.gu(control_height/2)
+            width: units.gu(parent.width)
             anchors.top: policybuttons.bottom
+            anchors.left: parent.left
+            Rectangle {
+                id: run_busy_id
+                width: units.gu(2)
+                height: units.gu(2)
+                color: UbuntuColors.orange
+                state: "NORMAL"
+                RotationAnimator {
+                    id: rotate_run
+                    running: run_busy
+                    target: run_busy_id
+                    loops: 100000
+                    from: 0
+                    to: 360
+                    duration: 50
+                    onRunningChanged: {
+                        run_busy_id.color = UbuntuColors.purple;
+                        run_busy_id.state = "ROTATING";
+                    }
+                }
+                states: [
+                    State {
+                        name: "NORMAL"
+                        PropertyChanges { target: run_busy_id; color: UbuntuColors.orange }
+                    },
+                    State {
+                        name: "ROTATING"
+                        PropertyChanges { target: run_busy_id; color: UbuntuColors.purple }
+                    }
+                ]
+            }
+
+            Button {
+                id: run_b
+                anchors.left: run_busy_id.right
+                text: "Go"
+                onClicked: {
+                    run();
+                }
+            }
+        }
+
+        Rectangle {
+            id: status
+            anchors.top: runbuttons.bottom
             width: units.gu(page_width)
             height: units.gu(0)
             visible: false

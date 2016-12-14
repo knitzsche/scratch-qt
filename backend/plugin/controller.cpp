@@ -5,6 +5,8 @@ Controller::Controller(Depends *deps, QString deptype) : deps_(deps)
     GetDepends *gdeps = new GetDepends(*deps_);
     gdeps->moveToThread(&workerThread);
     connect(&workerThread, &QThread::finished, gdeps, &QObject::deleteLater);
+
+
     if (deptype == "Depends")
     {
         connect(this, &Controller::operate, gdeps, &GetDepends::get_depends);
@@ -36,6 +38,12 @@ Controller::Controller(Depends *deps, QString deptype) : deps_(deps)
         connect(this, &Controller::operate, gdeps, &GetDepends::get_pol);
         connect(gdeps, &GetDepends::policyReady, deps_, &Depends::updatePolicy);
         connect(gdeps, &GetDepends::polDone, deps_, &Depends::policyDone);
+    }
+    else if (deptype == "run")
+    {
+        connect(this, &Controller::operate, gdeps, &GetDepends::run);
+        //connect(gdeps, &GetDepends::runReady, deps_, &Depends::updateRun);
+        connect(gdeps, &GetDepends::runDone, deps_, &Depends::runDone);
     }
     connect(gdeps, &GetDepends::invalidPackage, deps_, &Depends::badPackage);
 

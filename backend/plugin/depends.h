@@ -31,6 +31,7 @@ class Depends: public QObject
 {
     Q_OBJECT
     Q_PROPERTY( QString policy READ policy NOTIFY policyChanged )
+    Q_PROPERTY( QString run READ run NOTIFY runChanged )
     Q_PROPERTY( QString depends READ depends NOTIFY dependsChanged )
     Q_PROPERTY( QString recommends READ recommends NOTIFY recommendsChanged )
     Q_PROPERTY( QString parentsDepends READ parentsDepends NOTIFY parentsDependsChanged )
@@ -45,6 +46,7 @@ public:
     Q_INVOKABLE void get_parents_recommendations(QString, int);
     Q_INVOKABLE void stop_parents_recommendations();
     Q_INVOKABLE void get_policy(QString);
+    Q_INVOKABLE void get_run();
     Depends(QObject *parent = 0) :
         QObject(parent)
     {
@@ -54,6 +56,10 @@ public:
     QString pol;
     QString policy() { return pol; }
     void setPolicy(QString pkg);
+
+    QString run_;
+    QString run() { return run_; }
+    void setRun(QString run_);
 
     QString deps;
     QString depends() { return deps; }
@@ -143,6 +149,7 @@ public slots:
 
 signals:
     void policyChanged();
+    void runChanged();
     void dependsChanged(int dep_idx);
     void recommendsChanged(int rec_idx);
     void parentsChanged();
@@ -154,6 +161,7 @@ signals:
     void parentsRecommendsReady(const QString &result, int par_rec_idx);
     void invalidPackageFound();
     void policyDone();
+    void runDone();
 };
 
 class GetDepends : public QObject
@@ -171,6 +179,7 @@ public slots:
     void get_parents_depends(const QString &pkg, int par_dep_idx);
     void get_parents_recommends(const QString &pkg, int par_rec_idx);
     void get_pol(const QString &pkg);
+    void run();
 signals:
     void dependsReady(const QString &result, int dep_idx);
     void recommendsReady(const QString &result, int rec_idx);
@@ -178,6 +187,7 @@ signals:
     void invalidPackage(const QString &pkg);
     void depsInvalid();
     void polDone();
+    void runDone();
 };
 
 

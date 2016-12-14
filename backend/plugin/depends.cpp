@@ -25,6 +25,7 @@
 #include <future>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <QStringList>
 #include <QVariant>
 #include <QDebug>
@@ -315,5 +316,24 @@ void GetDepends::get_pol(const QString &pkg)
     QString pol = result("apt-cache policy " + pkg);
     qDebug() << "==== in get_pol(). pol: " << pol ;
     Q_EMIT policyReady(pol);
+}
+void Depends::get_run()
+{
+    qDebug() << "==== in Depends::get_run(). pkg: ";
+    Controller *cont = new Controller(this, "run");
+    Q_EMIT cont->operate("run", -1);
+    return;
+}
+
+void GetDepends::run()
+{
+    qDebug() << "==== in GetDe0pends::run(): ";
+    //TODO better random pick, mayb 1-10 secs
+    auto sleepTime = 100000L+(long)((1e5-1e4)*rand()/(RAND_MAX+1.0));  
+    sleepTime = sleepTime * 30;
+    qDebug() << "=== sleep time: " << QString::number(sleepTime);
+    usleep(sleepTime);
+    qDebug() << "=== sleep DONE: " << QString::number(sleepTime);
+    Q_EMIT runDone();//the Controller for now simply connects this to Depends runDone signal, which is heard in qml
 }
 
