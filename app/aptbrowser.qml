@@ -22,6 +22,20 @@ MainView {
     Tabs {
         id: tabs 
         Tab {
+            title: "C++ Threads"
+            page: Page {
+                id: threadsPage
+                title: "C++ threads"
+                objectName: "threadsTab"
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    bottom: parent.bottom
+                }
+                ThreadController {}
+            }
+        }
+        Tab {
             title: "cli"
             page: Page {
                 id: cliPage

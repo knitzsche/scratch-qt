@@ -8,6 +8,8 @@ set(
     plugin/depends.cpp
     plugin/controller.cpp
     plugin/cli.cpp
+    plugin/thread_controller.cpp
+    plugin/threadworker.cpp
 )
 
 add_library(Aptbrowserbackend MODULE

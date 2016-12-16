@@ -47,6 +47,7 @@ public:
     Q_INVOKABLE void stop_parents_recommendations();
     Q_INVOKABLE void get_policy(QString);
     Q_INVOKABLE void get_run();
+
     Depends(QObject *parent = 0) :
         QObject(parent)
     {

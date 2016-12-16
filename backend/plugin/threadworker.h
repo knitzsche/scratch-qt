@@ -17,28 +17,42 @@
  *
  */
 
-#include <QtQml>
-#include <QtQml/QQmlContext>
+#ifndef THREADWORKER_H 
+#define THREADWORKER_H
+
+#include <QObject>
+#include <QQuickItem>
+#include <QStringList>
+#include <QVariant>
+#include <QMap>
 #include <QDebug>
-#include "backend.h"
-#include "depends.h"
-#include "cli.h"
-#include "controller.h"
-#include "threadworker.h"
+#include <QThread>
 
-
-void BackendPlugin::registerTypes(const char *uri)
+class ThreadWorker: public QQuickItem
 {
-    Q_ASSERT(uri == QLatin1String("Aptbrowser"));
-    
-    qDebug() << "=== register to uri: " << uri;
+    Q_OBJECT
+    Q_PROPERTY( QString run READ run NOTIFY runDone )
 
-    qmlRegisterType<Depends>(uri, 1, 0, "Depends");
-    qmlRegisterType<Cli>(uri, 1, 0, "Cli");
-    qmlRegisterType<ThreadWorker>(uri, 1, 0, "ThreadWorker");
-}
+public:
+    Q_INVOKABLE void start_me();
 
-void BackendPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
-{
-    QQmlExtensionPlugin::initializeEngine(engine, uri);
-}
+    ThreadWorker(QQuickItem *parent = 0) :
+        QQuickItem(parent)
+    {
+    }
+    ~ThreadWorker();
+
+    QString run_;
+    QString run() { return run_; }
+    void setRun(QString run_);
+
+public slots:
+    void do_run();
+
+signals:
+    void runDone();
+
+};
+
+#endif // THREAD_H
+
