@@ -17,42 +17,31 @@
  *
  */
 
-#ifndef THREADWORKER_H 
-#define THREADWORKER_H
-
-#include <QObject>
-#include <QQuickItem>
+#include "jobs.h"
+#include "jobcontroller.h"
+#include <iostream>
+#include <string>
+#include <thread>
+#include <future>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <QStringList>
 #include <QVariant>
-#include <QMap>
 #include <QDebug>
-#include <QThread>
 
-class ThreadWorker: public QQuickItem
+Jobs::~Jobs() {
+}
+
+void Jobs::job1()
 {
-    Q_OBJECT
-    Q_PROPERTY( QString run READ run NOTIFY runDone )
-
-public:
-    Q_INVOKABLE void start_me();
-
-    ThreadWorker(QQuickItem *parent = 0) :
-        QQuickItem(parent)
-    {
-    }
-    ~ThreadWorker();
-
-    QString run_;
-    QString run() { return run_; }
-    void setRun(QString run_);
-
-public slots:
-    void do_run();
-
-signals:
-    void runDone();
-
-};
-
-#endif // THREAD_H
+    qDebug() << "==== in Jobs::job1()";
+    //TODO better random pick, mayb 1-10 secs
+    auto sleepTime = 100000L+(long)((1e5-1e4)*rand()/(RAND_MAX+1.0));  
+    sleepTime = sleepTime * 30;
+    qDebug() << "=== sleep time: " << QString::number(sleepTime);
+    usleep(sleepTime);
+    qDebug() << "=== sleep DONE: " << QString::number(sleepTime);
+    Q_EMIT job1Done();//the Controller for now simply connects this to Depends runDone signal, which is heard in qml
+}
 
