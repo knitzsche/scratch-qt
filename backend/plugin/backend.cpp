@@ -24,7 +24,7 @@
 #include "depends.h"
 #include "cli.h"
 #include "controller.h"
-#include "threadworker.h"
+#include "job.h"
 
 
 void BackendPlugin::registerTypes(const char *uri)
@@ -35,7 +35,7 @@ void BackendPlugin::registerTypes(const char *uri)
 
     qmlRegisterType<Depends>(uri, 1, 0, "Depends");
     qmlRegisterType<Cli>(uri, 1, 0, "Cli");
-    qmlRegisterType<ThreadWorker>(uri, 1, 0, "ThreadWorker");
+    qmlRegisterType<Job>(uri, 1, 0, "Job");
 }
 
 void BackendPlugin::initializeEngine(QQmlEngine *engine, const char *uri)

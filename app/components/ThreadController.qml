@@ -6,14 +6,24 @@ import "../components"
 Rectangle  {
     id: threads
 
-    ThreadWorker {
-        id: worker1
-        button_text: "Thread 1"
+    Job {
+        id: job1
+        button_text: "Job 1"
         anchors.top: parent.top
     }
-    ThreadWorker {
-        id: worker2
-        button_text: "Thread 2"
-        anchors.top: worker1.bottom 
+    Job {
+        id: job2
+        button_text: "Job 2"
+        anchors.top: job1.bottom 
+    }
+    Job {
+        id: job3
+        button_text: "Job 3"
+        anchors.top: job2.bottom 
+    }
+    Job {
+        id: job4
+        button_text: "Job 4"
+        anchors.top: job3.bottom 
     }
 }

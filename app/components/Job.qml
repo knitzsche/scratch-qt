@@ -2,7 +2,7 @@ import QtQuick 2.2
 import Ubuntu.Components 1.1
 import Aptbrowser 1.0
 
-ThreadWorker {
+Job {
     id: w1
     property bool run_busy: false
     property  string button_text: "default"
@@ -11,7 +11,7 @@ ThreadWorker {
         console.log("in run 1 ITEM");
         run_busy = true;
         threader.state = "ROTATING";
-        worker1.start_me();
+        start();
         console.log("done with run 2 ITEM");
     }
     Rectangle {
@@ -59,7 +59,7 @@ ThreadWorker {
             runMe(); 
         }
     }
-    onRunDone: {
+    onJobDone: {
         console.log("run done in ITEM");
         run_busy = false;
         threader.state = "NORMAL";        
