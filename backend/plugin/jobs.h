@@ -31,7 +31,8 @@
 class Jobs: public QObject
 {
     Q_OBJECT
-    Q_PROPERTY( QString run READ run NOTIFY job1Done )
+    Q_PROPERTY( QString run READ run NOTIFY jobDone )
+
 public:
     Jobs(QObject *parent = 0) :
         QObject(parent)
@@ -44,9 +45,12 @@ public:
 
 public slots:
     void job1();
+    void job2();
+    void job3();
+    void job4();
 
 signals:
-    void job1Done();
+    void jobDone();
 
 };
 

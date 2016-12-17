@@ -7,26 +7,24 @@ JobController::JobController(Job *job, const QString & job_name) : job_(job)
     jobs->moveToThread(&workerThread);
     connect(&workerThread, &QThread::finished, jobs, &QObject::deleteLater);
 
+    qDebug() << "=== controller job_name: " << job_name;
     if (job_name == "job1")
     {
         connect(this, &JobController::operate, jobs, &Jobs::job1);
-        //connect(gdeps, &GetDepends::runReady, deps_, &Depends::updateRun);
-        connect(jobs, &Jobs::job1Done, job_, &Job::jobDone);
     }
-/*
-    if (deptype == "policy")
+    else if (job_name == "job2")
     {
-        connect(this, &Job_Controller::operate, gdeps, &GetDepends::get_pol);
-        connect(gdeps, &GetDepends::policyReady, deps_, &Depends::updatePolicy);
-        connect(gdeps, &GetDepends::polDone, deps_, &Depends::policyDone);
+        connect(this, &JobController::operate, jobs, &Jobs::job2);
     }
-    else if (deptype == "run")
+    else if (job_name == "job3")
     {
-        connect(this, &Job_Controller::operate, gdeps, &GetDepends::run);
-        //connect(gdeps, &GetDepends::runReady, deps_, &Depends::updateRun);
-        connect(gdeps, &GetDepends::runDone, deps_, &Depends::runDone);
+        connect(this, &JobController::operate, jobs, &Jobs::job3);
     }
-*/
+    else if (job_name == "job4")
+    {
+        connect(this, &JobController::operate, jobs, &Jobs::job4);
+    }
+    connect(jobs, &Jobs::jobDone, job_, &Job::jobDone);
 
     workerThread.start();
 }

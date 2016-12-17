@@ -42,6 +42,29 @@ void Jobs::job1()
     qDebug() << "=== sleep time: " << QString::number(sleepTime);
     usleep(sleepTime);
     qDebug() << "=== sleep DONE: " << QString::number(sleepTime);
-    Q_EMIT job1Done();//the Controller for now simply connects this to Depends runDone signal, which is heard in qml
+    Q_EMIT jobDone();
 }
 
+void Jobs::job2()
+{
+    qDebug() << "==== in Jobs::job2()";
+    long sleepTime = 1000000;
+    usleep(sleepTime);
+    Q_EMIT jobDone();
+}
+
+void Jobs::job3()
+{
+    qDebug() << "==== in Jobs::job3()";
+    long sleepTime = 2000000;
+    usleep(sleepTime);
+    Q_EMIT jobDone();
+}
+
+void Jobs::job4()
+{
+    qDebug() << "==== in Jobs::jobr42()";
+    long sleepTime = 3000000;
+    usleep(sleepTime);
+    Q_EMIT jobDone();
+}

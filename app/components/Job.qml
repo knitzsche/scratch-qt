@@ -3,16 +3,15 @@ import Ubuntu.Components 1.1
 import Aptbrowser 1.0
 
 Job {
-    id: w1
+    property string name
     property bool run_busy: false
     property  string button_text: "default"
+    property  string job: "default"
     height: units.gu(5)
     function runMe() {
-        console.log("in run 1 ITEM");
         run_busy = true;
         threader.state = "ROTATING";
-        start();
-        console.log("done with run 2 ITEM");
+        start(job);
     }
     Rectangle {
         id: threader 
@@ -55,7 +54,6 @@ Job {
         text: button_text
         color: UbuntuColors.midAubergine
         onClicked: {
-            console.log(text  + " clicked");
             runMe(); 
         }
     }

@@ -39,9 +39,10 @@ public:
     {
     }
     ~Job();
+    
 
 public slots:
-    void start();
+    void start(QString const & name);
 
 signals:
     void jobDone();

@@ -33,10 +33,10 @@
 Job::~Job() {
 }
 
-void Job::start()
+void Job::start(QString const & job_name)
 {
     qDebug() << "==== in Job::start_me()";
-    JobController *cont = new JobController(this, "job1");
-    Q_EMIT cont->operate("run");
+    JobController *cont = new JobController(this, job_name);
+    Q_EMIT cont->operate(job_name);
     return;
 }
