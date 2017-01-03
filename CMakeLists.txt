@@ -6,7 +6,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pedantic -Wall -Wextra -g")
 #ADD_DEFINITIONS( -DQT_NO_DEBUG_OUTPUT )
 
 # Do not remove this line, its required for the correct functionality of the Ubuntu-SDK
-#set(UBUNTU_MANIFEST_PATH "manifest.json.in" CACHE INTERNAL "Tells QtCreator location and name of the manifest file")
 set (CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 find_package(Qt5Core)
@@ -38,17 +37,6 @@ set(DESKTOP_DIR ${DATA_DIR})
 set(DESKTOP_FILE_NAME "aptbrowser.desktop")
 
 set(EXEC "qmlscene $@ ${QML_DIR}/${MAIN_QML}")
-
-# This command figures out the target architecture for use in the manifest file
-execute_process(
-  COMMAND dpkg-architecture -qDEB_HOST_ARCH
-  OUTPUT_VARIABLE CLICK_ARCH
-  OUTPUT_STRIP_TRAILING_WHITESPACE
-)
-
-configure_file(manifest.json.in ${CMAKE_CURRENT_BINARY_DIR}/manifest.json)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/manifest.json
-        DESTINATION ${CMAKE_INSTALL_PREFIX})
 
 install(DIRECTORY "app/graphics" DESTINATION ${DATA_DIR})
 install(DIRECTORY "ubuntu-app-platform" DESTINATION ${DATA_DIR})
