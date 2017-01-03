@@ -17,17 +17,15 @@ export LD_LIBRARY_PATH=$SNAP/usr/lib/$ARCH/pulseaudio:$LD_LIBRARY_PATH
 # Qt Modules
 export QT_PLUGIN_PATH=$SNAP/ubuntu-app-platform/usr/lib/$ARCH/qt5/plugins
 
-# WML
+# Ubuntu-app-platform
 export QML2_IMPORT_PATH=$QML2_IMPORT_PATH:$SNAP/ubuntu-app-platform/usr/lib/$ARCH/qt5/qml
 export QML2_IMPORT_PATH=$QML2_IMPORT_PATH:$SNAP/lib/$ARCH
 
 cd $SNAP
 
 export OXIDE_NO_SANDBOX=1
-echo "====== SMAP: ${SNAP}"
-echo ""
 echo "====== LD_LIBARY_PATH: $LD_LIBRARY_PATH"
 echo ""
 echo "====== QML2_IMPORT_PATH: $QML2_IMPORT_PATH"
 
-exec $SNAP/ubuntu-app-platform/usr/bin/qmlscene -I $SNAP/lib/$ARCH $SNAP/qml/aptbrowser.qml
+exec $SNAP/ubuntu-app-platform/usr/bin/qmlscene -I $SNAP/lib/$ARCH $SNAP/app/main.qml

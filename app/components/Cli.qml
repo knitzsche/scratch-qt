@@ -1,7 +1,7 @@
 import QtQuick 2.5
 import Ubuntu.Components 1.2
-import  QtQuick.Layouts 1.2
-import Aptbrowser 1.0
+import QtQuick.Layouts 1.2
+import Scratchqt 1.0
 import "../components"
 
 Rectangle {
@@ -76,6 +76,7 @@ Rectangle {
                 id: cliButtons
                 anchors.top: row2.top
                 anchors.left: row2.left
+                anchors.leftMargin: 10
                 width: 150
                 height: 200
                 Rectangle {
@@ -85,6 +86,7 @@ Rectangle {
                     Button {
                         id: getCli_b
                         anchors.top: cli_busy_id.top
+                        color: UbuntuColors.midAubergine
                         text: "Your Command"
                         onClicked: {
                             getCli(cmd);
@@ -94,25 +96,30 @@ Rectangle {
                         id: cmd1
                         anchors.top: getCli_b.bottom
                         anchors.topMargin: 5
+                        color: UbuntuColors.midAubergine
                         text: cmd_snap_list
                         onClicked: {
                             getCli(cmd_snap_list);
                         }
                     }
+                    /* denied in snap run context
                     Button {
                         id: cmd3
                         text: "snap interfaces"
                         anchors.topMargin: 5
                         anchors.top: getCli_b.bottom
+                        color: UbuntuColors.midAubergine
                         onClicked: {
                             getCli("snap interfaces");
                         }
                     }
+                    */
                     Button {
                         id: cmd_env
                         text: "env"
-                        anchors.top: cmd3.bottom
+                        anchors.top: getCli_b.bottom
                         anchors.topMargin: 5
+                        color: UbuntuColors.midAubergine
                         onClicked: {
                             getCli("env");
                         }
@@ -122,6 +129,7 @@ Rectangle {
                         text: "env SNAP"
                         anchors.top: cmd_env.bottom
                         anchors.topMargin: 5
+                        color: UbuntuColors.midAubergine
                         onClicked: {
                             getCli("env | grep SNAP");
                         }

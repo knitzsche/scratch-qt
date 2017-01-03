@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Canonical Ltd
+ * Copyright (C) 2017 Canonical Ltd
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -21,19 +21,14 @@
 #include <QtQml/QQmlContext>
 #include <QDebug>
 #include "backend.h"
-#include "depends.h"
 #include "cli.h"
-#include "controller.h"
 #include "job.h"
 
 
 void BackendPlugin::registerTypes(const char *uri)
 {
-    Q_ASSERT(uri == QLatin1String("Aptbrowser"));
-    
-    qDebug() << "=== register to uri: " << uri;
+    Q_ASSERT(uri == QLatin1String("Scratchqt"));
 
-    qmlRegisterType<Depends>(uri, 1, 0, "Depends");
     qmlRegisterType<Cli>(uri, 1, 0, "Cli");
     qmlRegisterType<Job>(uri, 1, 0, "Job");
 }

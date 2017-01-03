@@ -1,6 +1,6 @@
 set (VERSION "0.2")
 
-project(aptbrowser C CXX)
+project(scratch-qt C CXX)
 cmake_minimum_required(VERSION 2.8.10)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pedantic -Wall -Wextra -g")
 #ADD_DEFINITIONS( -DQT_NO_DEBUG_OUTPUT )
@@ -26,9 +26,9 @@ execute_process(
 
 set(QT_IMPORTS_DIR "lib/${ARCH_TRIPLET}")
 
-set(APP_NAME          aptbrowser)
-set(APTBROWSER_DIR "qml")
-set(MAIN_QML          "aptbrowser.qml")
+set(APP_NAME          scratch-qt)
+set(QML_DIR "qml")
+set(MAIN_QML          "main.qml")
 set(ICON              "graphics/icon.png")
 
 # Set install paths
@@ -37,7 +37,7 @@ set(DATA_DIR /)
 set(DESKTOP_DIR ${DATA_DIR})
 set(DESKTOP_FILE_NAME "aptbrowser.desktop")
 
-set(EXEC "qmlscene $@ ${APTBROWSER_DIR}/${MAIN_QML}")
+set(EXEC "qmlscene $@ ${QML_DIR}/${MAIN_QML}")
 
 # This command figures out the target architecture for use in the manifest file
 execute_process(
@@ -52,14 +52,10 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/manifest.json
 
 install(DIRECTORY "app/graphics" DESTINATION ${DATA_DIR})
 install(DIRECTORY "ubuntu-app-platform" DESTINATION ${DATA_DIR})
-#install(FILES "aptbrowser.apparmor" DESTINATION ${DATA_DIR})
 
 add_subdirectory(app)
 add_subdirectory(backend)
 
-add_custom_target("run" /usr/bin/qmlscene -I ${CMAKE_BINARY_DIR}/backend  ${CMAKE_SOURCE_DIR}/app/aptbrowser.qml
+add_custom_target("run" /usr/bin/qmlscene -I ${CMAKE_BINARY_DIR}/backend  ${CMAKE_SOURCE_DIR}/app/main.qml
                     WORKING_DIRECTORY ./app)
-
-# No op custom target for all not compiled files, so they show up in the QtCreator project tree
-#add_custom_target("aptbrowser_ClickFiles" ALL SOURCES "aptbrowser.apparmor" "manifest.json.in")
 

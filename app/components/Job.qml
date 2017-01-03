@@ -1,6 +1,6 @@
 import QtQuick 2.2
 import Ubuntu.Components 1.1
-import Aptbrowser 1.0
+import Scratchqt 1.0
 
 Job {
     property string name

@@ -1,8 +1,8 @@
 #!/bin/bash
-snap remove aptbrowser
+snap remove scratch-qt 
 snapcraft clean 
 snapcraft prime
-snap try prime
-snap connect aptbrowser:platform ubuntu-app-platform:platform
-sudo /usr/lib/snapd/snap-discard-ns aptbrowser
-aptbrowser.run
+snap try prime $1
+snap connect scratch-qt:platform ubuntu-app-platform:platform
+#sudo /usr/lib/snapd/snap-discard-ns aptbrowser
+scratch-qt.run

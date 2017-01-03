@@ -1,13 +1,13 @@
-name: aptbrowser
-version: 0.2.3
-summary: Browse your apt dependencies
-description: Browse your apt cache dependencies
+name: scratch-qt 
+version: 1
+summary: Qt App Itch Scratching
+description: Various Qt bits with ubuntu-app-platform
 confinement: strict 
 grade: devel 
 
 apps:
   run: 
-    command: desktop-launch aptbrowser
+    command: desktop-launch scratch-qt 
     plugs: [platform, unity7, opengl, network-bind, gsettings, browser-support, pulseaudio]
 
 plugs:
@@ -32,4 +32,4 @@ parts:
         plugin: dump
         source: .
         organize:
-            aptbrowser.wrapper: bin/aptbrowser
+            run.wrapper: bin/scratch-qt

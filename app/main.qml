@@ -12,7 +12,7 @@ MainView {
     objectName: "mainView"
 
     // Note! applicationName needs to match the "name" field of the click manifest
-    applicationName: "com.ubuntu.developer.knitzsche.aptbrowser"
+    //applicationName: "com.ubuntu.developer.knitzsche.aptbrowser"
 
     //automaticOrientation: true
 
@@ -45,20 +45,6 @@ MainView {
             }
         }
         Tab {
-            title: "Apt"
-            page: Page {
-                id: aptPage
-                title: "Apt Cache"
-                objectName: "aptTab"
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                    bottom: parent.bottom
-                }
-                Apt {}
-            }
-        }
-        Tab {
             title: "Web"
             page: Page {
                 id: webviewPage
@@ -74,9 +60,6 @@ MainView {
             }
         }
 
-    }
-    function getPolicy(pkg) {
-        details.apt_policy(pkg);
     }
 }
 
