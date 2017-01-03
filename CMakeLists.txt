@@ -52,10 +52,10 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/manifest.json
 
 install(DIRECTORY "app/graphics" DESTINATION ${DATA_DIR})
 install(DIRECTORY "ubuntu-app-platform" DESTINATION ${DATA_DIR})
+file(MAKE_DIRECTORY ubuntu-app-platform)
 
 add_subdirectory(app)
 add_subdirectory(backend)
 
 add_custom_target("run" /usr/bin/qmlscene -I ${CMAKE_BINARY_DIR}/backend  ${CMAKE_SOURCE_DIR}/app/main.qml
                     WORKING_DIRECTORY ./app)
-
