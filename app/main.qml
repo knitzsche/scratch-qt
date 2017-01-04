@@ -16,7 +16,7 @@ MainView {
 
     //automaticOrientation: true
 
-    width: units.gu(160)
+    width: units.gu(80)
     height: units.gu(100)
 
     Tabs {
