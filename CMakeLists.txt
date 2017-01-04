@@ -39,8 +39,8 @@ set(DESKTOP_FILE_NAME "aptbrowser.desktop")
 set(EXEC "qmlscene $@ ${QML_DIR}/${MAIN_QML}")
 
 install(DIRECTORY "app/graphics" DESTINATION ${DATA_DIR})
-install(DIRECTORY "ubuntu-app-platform" DESTINATION ${DATA_DIR})
 file(MAKE_DIRECTORY ubuntu-app-platform)
+install(DIRECTORY "ubuntu-app-platform" DESTINATION ${DATA_DIR})
 
 add_subdirectory(app)
 add_subdirectory(backend)

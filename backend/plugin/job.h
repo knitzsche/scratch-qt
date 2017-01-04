@@ -22,10 +22,7 @@
 
 #include <QObject>
 #include <QQuickItem>
-#include <QStringList>
-#include <QVariant>
-#include <QMap>
-#include <QDebug>
+#include <QString>
 #include <QThread>
 
 class Job: public QQuickItem

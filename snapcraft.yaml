@@ -14,7 +14,6 @@ plugs:
     platform:
         interface: content
         content: ubuntu-app-platform1
-        default-provider: ubuntu-app-platform
         target: ubuntu-app-platform
 
 parts:

@@ -24,6 +24,7 @@ JobController::JobController(Job *job, const QString & job_name) : job_(job)
     {
         connect(this, &JobController::operate, jobs, &Jobs::job4);
     }
+ 
     connect(jobs, &Jobs::jobDone, job_, &Job::jobDone);
 
     workerThread.start();

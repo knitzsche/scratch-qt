@@ -19,15 +19,6 @@
 
 #include "job.h"
 #include "jobcontroller.h"
-#include <iostream>
-#include <string>
-#include <thread>
-#include <future>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <QStringList>
-#include <QVariant>
 #include <QDebug>
 
 Job::~Job() {

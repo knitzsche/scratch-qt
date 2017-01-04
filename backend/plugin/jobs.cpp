@@ -63,7 +63,7 @@ void Jobs::job3()
 
 void Jobs::job4()
 {
-    qDebug() << "==== in Jobs::jobr42()";
+    qDebug() << "==== in Jobs::job4()";
     long sleepTime = 3000000;
     usleep(sleepTime);
     Q_EMIT jobDone();
